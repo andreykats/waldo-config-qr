@@ -11,6 +11,7 @@
     <div id="reader" style="width:300px;height:300px"></div>
     <input type="text" id="qrCodeResult" readonly>
     <input type="text" id="requestStatus" readonly>
+    <select id="dropdown"></select>
     <script>
         window.onload = function () {
             let qrCodeResult = '';
@@ -24,10 +25,11 @@
             let html5QrcodeScanner = new Html5QrcodeScanner(
                 "reader", config, /* verbose= */ false);
             html5QrcodeScanner.render(onScanSuccess);
+            getZones();
 
             function onScanSuccess(decodedText, decodedResult) {
                 qrCodeResult = decodedText;
-                qrCodeResult = qrCodeResult.replace(/MAC|:|\s/g, '');
+                qrCodeResult = qrCodeResult.replace(/MAC|WiFi|:|\s/g, '');
 
                 html5QrcodeScanner.clear();
                 sendPostRequest(qrCodeResult);
@@ -35,12 +37,15 @@
             }
 
             function sendPostRequest(qrCodeResult) {
+                let dropdown = document.getElementById('dropdown');
+                let selectedOption = dropdown.options[dropdown.selectedIndex].value;
+
                 fetch('https://your-url.com', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ qrCode: qrCodeResult }),
+                    body: JSON.stringify({ qrCode: qrCodeResult, selectedOption: selectedOption }),
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -53,6 +58,20 @@
                         document.getElementById('requestStatus').value = "Error";
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     });
+            }
+            function getZones() {
+                fetch('https://your-url.com')
+                    .then(response => response.json())
+                    .then(data => {
+                        let dropdown = document.getElementById('dropdown');
+                        data.forEach(item => {
+                            let option = document.createElement('option');
+                            option.value = item.value;
+                            option.text = item.text;
+                            dropdown.add(option);
+                        });
+                    })
+                    .catch((error) => console.error('Error:', error));
             }
         };
     </script>
