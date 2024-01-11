@@ -9,13 +9,21 @@
 
 <body>
     <div id="reader" style="width:300px;height:300px"></div>
+    <input type="file" accept="image/*">
     <button id="startButton">Start Scanning</button>
     <input type="text" id="qrCodeResult" readonly>
     <script>
         window.onload = function () {
             let qrCodeResult = '';
+            let config = {
+                fps: 10,
+                qrbox: { width: 100, height: 100 },
+                rememberLastUsedCamera: true,
+                // Only support camera scan type.
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+            };
             let html5QrcodeScanner = new Html5QrcodeScanner(
-                "reader", { fps: 10, qrbox: { width: 250, height: 250 } });
+                "reader", config, /* verbose= */ false);
             html5QrcodeScanner.render(onScanSuccess);
 
             function onScanSuccess(decodedText, decodedResult) {
