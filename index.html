@@ -9,8 +9,6 @@
 
 <body>
     <div id="reader" style="width:300px;height:300px"></div>
-    <!-- <input type="file" accept="image/*"> -->
-    <!-- <button id="startButton">Start Scanning</button> -->
     <input type="text" id="qrCodeResult" readonly>
     <input type="text" id="requestStatus" readonly>
     <script>
@@ -29,6 +27,8 @@
 
             function onScanSuccess(decodedText, decodedResult) {
                 qrCodeResult = decodedText;
+                qrCodeResult = qrCodeResult.replace(/MAC|:|\s/g, '');
+
                 html5QrcodeScanner.clear();
                 sendPostRequest(qrCodeResult);
                 document.getElementById('qrCodeResult').value = qrCodeResult; // Add this line
@@ -45,12 +45,12 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log('Success:', data)
-                        document.getElementById('qrCodeResult').value = "Success";
+                        document.getElementById('requestStatus').value = "Success";
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     })
                     .catch((error) => {
                         console.error('Error:', error)
-                        document.getElementById('qrCodeResult').value = "Error";
+                        document.getElementById('requestStatus').value = "Error";
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     });
             }
