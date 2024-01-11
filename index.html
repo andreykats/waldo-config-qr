@@ -3,6 +3,7 @@
 
 <head>
     <title>QR Code Scanner PWA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://rawgit.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
 </head>
 
@@ -11,7 +12,7 @@
     <button id="startButton">Start Scanning</button>
     <input type="text" id="qrCodeResult" readonly>
     <script>
-        document.getElementById('startButton').addEventListener('click', function () {
+        window.onload = function () {
             let qrCodeResult = '';
             let html5QrcodeScanner = new Html5QrcodeScanner(
                 "reader", { fps: 10, qrbox: { width: 250, height: 250 } });
@@ -36,7 +37,7 @@
                     .then(data => console.log('Success:', data))
                     .catch((error) => console.error('Error:', error));
             }
-        });
+        };
     </script>
 </body>
 
