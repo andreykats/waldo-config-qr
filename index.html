@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>QR Code Scanner PWA</title>
+    <script src="https://rawgit.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
+</head>
+
+<body>
+    <div id="reader" style="width:300px;height:300px"></div>
+    <button id="startButton">Start Scanning</button>
+    <input type="text" id="qrCodeResult" readonly>
+    <script>
+        document.getElementById('startButton').addEventListener('click', function () {
+            let qrCodeResult = '';
+            let html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", { fps: 10, qrbox: { width: 250, height: 250 } });
+            html5QrcodeScanner.render(onScanSuccess);
+
+            function onScanSuccess(decodedText, decodedResult) {
+                qrCodeResult = decodedText;
+                html5QrcodeScanner.clear();
+                sendPostRequest(qrCodeResult);
+                document.getElementById('qrCodeResult').value = qrCodeResult; // Add this line
+            }
+
+            function sendPostRequest(qrCodeResult) {
+                fetch('https://your-url.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ qrCode: qrCodeResult }),
+                })
+                    .then(response => response.json())
+                    .then(data => console.log('Success:', data))
+                    .catch((error) => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+
+</html>
