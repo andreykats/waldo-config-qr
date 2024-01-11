@@ -9,9 +9,10 @@
 
 <body>
     <div id="reader" style="width:300px;height:300px"></div>
-    <input type="file" accept="image/*">
-    <button id="startButton">Start Scanning</button>
+    <!-- <input type="file" accept="image/*"> -->
+    <!-- <button id="startButton">Start Scanning</button> -->
     <input type="text" id="qrCodeResult" readonly>
+    <input type="text" id="requestStatus" readonly>
     <script>
         window.onload = function () {
             let qrCodeResult = '';
@@ -42,8 +43,16 @@
                     body: JSON.stringify({ qrCode: qrCodeResult }),
                 })
                     .then(response => response.json())
-                    .then(data => console.log('Success:', data))
-                    .catch((error) => console.error('Error:', error));
+                    .then(data => {
+                        console.log('Success:', data)
+                        document.getElementById('qrCodeResult').value = "Success";
+                        html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error)
+                        document.getElementById('qrCodeResult').value = "Error";
+                        html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
+                    });
             }
         };
     </script>
