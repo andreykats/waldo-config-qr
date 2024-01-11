@@ -5,13 +5,23 @@
     <title>QR Code Scanner PWA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body>
     <div id="reader" style="width:300px;height:300px"></div>
-    <input type="text" id="qrCodeResult" readonly>
-    <input type="text" id="requestStatus" readonly>
-    <select id="dropdown"></select>
+    <input type="text" id="qrCodeResult" readonly placeholder="QR Code Result">
+    <input type="text" id="requestStatus" readonly placeholder="Request Status">
+    <select id="dropdown">
+        <option value="" disabled selected>Select an zone</option>
+    </select>
     <script>
         window.onload = function () {
             let qrCodeResult = '';
