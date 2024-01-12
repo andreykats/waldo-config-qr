@@ -62,13 +62,12 @@
                 let dropdown = document.getElementById('dropdown');
                 let selectedOption = dropdown.options[dropdown.selectedIndex].value;
 
-                fetch('https://api.efcloud.app/api/v1/projects/39/access-points/${selectedOption}/readers', {
+                fetch('https://api.efcloud.app/api/v1/projects/39/access-points/${selectedOption}/readers?name=${gateway_id}&identifier=${gateway_id}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer 45|WmQk5OfwWWBJkist3MjPYk8pOK7OgSQjXSNX3ek2e34b2711`
                     },
-                    body: JSON.stringify({ name: gateway_id, identifier: gateway_id }),
                 })
                     .then(response => response.json())
                     .then(data => {
