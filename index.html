@@ -77,7 +77,7 @@
                     })
                     .catch((error) => {
                         console.error('POST Error:', error)
-                        document.getElementById('requestStatus').value = "POST Error";
+                        document.getElementById('requestStatus').value = selectedOption
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     });
             }
