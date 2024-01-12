@@ -58,17 +58,17 @@
                 document.getElementById('qrCodeResult').value = qrCodeResult; // Add this line
             }
 
-            function sendPostRequest(qrCodeResult) {
+            function sendPostRequest(gateway_id) {
                 let dropdown = document.getElementById('dropdown');
                 let selectedOption = dropdown.options[dropdown.selectedIndex].value;
 
-                fetch('https://your-url.com', {
+                fetch('https://api.efcloud.app/api/v1/projects/39/access-points/${selectedOption}/readers', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer 45|WmQk5OfwWWBJkist3MjPYk8pOK7OgSQjXSNX3ek2e34b2711`
                     },
-                    body: JSON.stringify({ qrCode: qrCodeResult, selectedOption: selectedOption }),
+                    body: JSON.stringify({ name: gateway_id, identifier: gateway_id }),
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -94,11 +94,11 @@
                         let nameSlugList = []; // Create an empty list to store the name and slug tuples
                         data.data.forEach(item => { // Loop through each item in the data
                             let name = item.name; // Get the name
-                            let slug = item.slug; // Get the slug
-                            nameSlugList.push([name, slug]); // Add the name and slug as a tuple to the list
+                            let id = item.id; // Get the slug
+                            nameSlugList.push([name, id]); // Add the name and slug as a tuple to the list
 
                             let option = document.createElement('option');
-                            option.value = 1;
+                            option.value = item.id;
                             option.text = item.name;
                             dropdown.add(option);
                         });
