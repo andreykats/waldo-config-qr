@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>QR Code Scanner PWA</title>
+    <title>WALDO ZONES CONFIG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/html5-qrcode"></script>
     <link rel="manifest" href="/manifest.json">
@@ -26,10 +26,10 @@
 
 <body>
     <div id="reader" style="width:300px;"></div>
-    <input type="text" id="qrCodeResult" readonly placeholder="QR Code Result">
+    <input type="text" id="qrCodeResult" readonly placeholder="Scan Result">
     <input type="text" id="requestStatus" readonly placeholder="Request Status">
     <select id="dropdown">
-        <option value="" disabled selected>Select an zone</option>
+        <option value="" disabled selected>Select Zone</option>
     </select>
 
     <script>
@@ -70,12 +70,12 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log('Success:', data)
-                        document.getElementById('requestStatus').value = "Success";
+                        document.getElementById('requestStatus').value = "POST Success";
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     })
                     .catch((error) => {
-                        console.error('Error:', error)
-                        document.getElementById('requestStatus').value = "Error";
+                        console.error('POST Error:', error)
+                        document.getElementById('requestStatus').value = "POST Error";
                         html5QrcodeScanner.render(onScanSuccess); // Relaunch the camera
                     });
             }
@@ -91,7 +91,10 @@
                             dropdown.add(option);
                         });
                     })
-                    .catch((error) => console.error('Error:', error));
+                    .catch((error) => {
+                        console.error('GET Error:', error)
+                        document.getElementById('requestStatus').value = "GET Error";
+                    });
             }
         };
     </script>
