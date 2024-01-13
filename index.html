@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/html5-qrcode"></script>
     <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-startup-image" href="images/icons-512.png"
+        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+
+    <!-- <link rel="apple-touch-startup-image"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        href="/images/icons-512.png"> -->
     <style>
         body {
             display: flex;
@@ -35,6 +41,11 @@
     </select>
 
     <script>
+        let rootUrlPost = 'https://api.efcloud.app/api/v1/projects/39/access-points/'
+        let rootUrlGet = 'https://api.efcloud.app/api/v1/projects/39/access-points?include=readers'
+
+        let authToken = 'Bearer 45|WmQk5OfwWWBJkist3MjPYk8pOK7OgSQjXSNX3ek2e34b2711'
+
         window.onload = function () {
             let qrCodeResult = '';
             let config = {
@@ -62,11 +73,11 @@
                 let dropdown = document.getElementById('dropdown');
                 let selectedOption = dropdown.options[dropdown.selectedIndex].value;
 
-                fetch('https://api.efcloud.app/api/v1/projects/39/access-points/' + selectedOption + '/readers?name=' + gateway_id + '&identifier=' + gateway_id, {
+                fetch(rootUrlPost + selectedOption + '/readers?name=' + gateway_id + '&identifier=' + gateway_id, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer 45|WmQk5OfwWWBJkist3MjPYk8pOK7OgSQjXSNX3ek2e34b2711`
+                        'Authorization': authToken
                     },
                 })
                     .then(response => response.json())
@@ -82,9 +93,9 @@
                     });
             }
             function getZones() {
-                fetch('https://api.efcloud.app/api/v1/projects/39/access-points?include=readers', {
+                fetch(rootUrlGet, {
                     headers: {
-                        'Authorization': `Bearer 45|WmQk5OfwWWBJkist3MjPYk8pOK7OgSQjXSNX3ek2e34b2711`
+                        'Authorization': authToken
                     }
                 })
                     .then(response => response.json())
