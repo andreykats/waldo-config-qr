@@ -11,9 +11,14 @@
             "src": "/images/icons-512.png",
             "type": "image/png",
             "sizes": "512x512"
+        },
+        {
+            "src": "/images/splash.png",
+            "type": "image/png",
+            "sizes": "1080x2340"
         }
     ],
-    "start_url": "/index.html",
+    "start_url": "/",
     "background_color": "#FFFFFF",
     "display": "fullscreen",
     "scope": "/",
