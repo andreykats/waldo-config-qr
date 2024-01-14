@@ -11,6 +11,8 @@
     <link rel="apple-touch-startup-image" href="/images/splash.png" // for iPhone mini
         media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"> -->
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         body {
@@ -33,13 +35,15 @@
 </head>
 
 <body>
-    <img src="images/icons-192.png" alt="Waldo" style="width: 100px; height: 100px;">
-    <div id="reader" style="width:300px;"></div>
-    <input type="text" id="qrCodeResult" readonly placeholder="Scan Result">
-    <input type="text" id="requestStatus" readonly placeholder="Request Status">
-    <select id="dropdown">
-        <option value="" disabled selected>Select Zone</option>
-    </select>
+    <div class="container">
+        <img src="images/icons-192.png" alt="Waldo" class="mx-auto d-block" style="width: 100px; height: 100px;">
+        <div id="reader" class="form-group"></div>
+        <input type="text" id="qrCodeResult" class="form-control" readonly placeholder="Scan Result">
+        <input type="text" id="requestStatus" class="form-control" readonly placeholder="Request Status">
+        <select id="dropdown" class="form-control">
+            <option value="" disabled selected>Select Zone</option>
+        </select>
+    </div>
 
     <script>
         let rootUrlPost = 'https://api.efcloud.app/api/v1/projects/39/access-points/'
