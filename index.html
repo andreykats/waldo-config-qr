@@ -39,12 +39,17 @@
             width: 100%;
             font-size: 1em;
         }
+
+        .waldo-image {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <img src="images/icons-192.png" alt="Waldo" class="mx-auto d-block" style="width: 100px; height: 100px;">
+        <img src="images/icons-192.png" alt="Waldo" class="waldo-image mx-auto d-block"
+            style="width: 100px; height: 100px;">
         <div id="reader" class="form-group"></div>
         <input type="text" id="qrCodeResult" class="form-control" readonly placeholder="Scan Result">
         <input type="text" id="requestStatus" class="form-control" readonly placeholder="Request Status">
