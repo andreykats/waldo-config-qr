@@ -76,6 +76,8 @@
             let html5QrcodeScanner = new Html5QrcodeScanner(
                 "reader", config, /* verbose= */ false);
             html5QrcodeScanner.render(onScanSuccess);
+
+            // Get the zones
             getZones();
 
             function onScanSuccess(decodedText, decodedResult) {
@@ -120,16 +122,31 @@
                     .then(data => {
                         let dropdown = document.getElementById('dropdown');
                         let nameSlugList = []; // Create an empty list to store the name and slug tuples
+
                         data.data.forEach(item => { // Loop through each item in the data
                             let name = item.name; // Get the name
                             let id = item.id; // Get the slug
                             nameSlugList.push([name, id]); // Add the name and slug as a tuple to the list
+                        });
 
+                        // Sort nameSlugList alphabetically by name
+                        nameSlugList.sort(function (a, b) {
+                            if (a[0] === b[0]) {
+                                return 0;
+                            }
+                            else {
+                                return (a[0] < b[0]) ? -1 : 1;
+                            }
+                        });
+
+                        // for each element in nameSlugList, create an option element and add it to the dropdown
+                        nameSlugList.forEach(item => {
                             let option = document.createElement('option');
-                            option.value = item.id;
-                            option.text = item.name;
+                            option.value = item[1];
+                            option.text = item[0];
                             dropdown.add(option);
                         });
+
                         console.log(nameSlugList); // Log the list to the console
                         document.getElementById('requestStatus').value = "GET Success";
                     })
