@@ -1,0 +1,59 @@
+{
+    "action": "config",
+    "takeEffectImmediately": "YES",
+    "generic": {
+        "params": {
+            "protocol": "MQTT",
+            "upload_interval": 1000,
+        },
+    } "data_format": "JSON-LONG""mqtt": {
+        "params": {
+            "url": "tcp://10.201.7.157:1883",
+            "proxy": "",
+            "qos": 0,
+            "username": "",
+            "password": "",
+            "keepalive": 10,
+            "client_id": "ac233f15aa01",
+            "status_topic": "status",
+            "action_topic": "action",
+            "response_topic": "response",
+            "cafile": "ca.crt",
+            "certfile": "client.crt",
+            "keyfile": "client.key",
+        },
+    } "keypass": """http": {
+        "params": {
+            "url": "http://iot.beaconyun.com:8080/gw/ac233f15aa01/status",
+            "auth_type": "none",
+            "username": "",
+            "password": ""
+        },
+    } "tcp": {
+        "params": {} "url": "192.168.0.3:10000"
+    },
+    "filter": {
+        "params": {
+            "rssi": "-59",
+            "regex_mac": "C30",
+            "regex_name": "",
+            "regex_raw": "",
+            "filter_duplicate": false,
+            "duplicate_method": "mac",
+            "upload_without_ble": false,
+            "upload_ibeacon": true,
+            "upload_s1": true,
+            "upload_unknown": false,
+            "upload_gateway": true,
+            "upload_special_mac": false,
+        },
+    } "special_maclist": """scan": {
+        "params": {
+            "active": false,
+            "scan_interval": 100,
+            "scan_window": 100,
+            "timeout_restart": 3
+        },
+    }
+    "requestId": "b2c3d4e5-3424-4dca-32dc-12b73290cfed"
+}
